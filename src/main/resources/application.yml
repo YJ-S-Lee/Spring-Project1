@@ -9,16 +9,17 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create  #update #create
-      properties:
-        hibernate:
-          format_sql: true
+      ddl-auto: update  #update #create
+
+    properties:
+      hibernate:
+        format_sql: true
 
   thymeleaf:
     prefix: classpath:/templates/ #???
     suffix: .html #???
 
-  logging:
-    level:
-      org.hibernate.SQL: debug
-      org.hibernate.orm.jdbc.bind: trace
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.orm.jdbc.bind: trace

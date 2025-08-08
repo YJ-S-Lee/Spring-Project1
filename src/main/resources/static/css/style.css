@@ -1,0 +1,8 @@
+.max600 {
+    max-width: 600px;
+}
+
+.field-error {
+    border-color: #dc3545;
+    color: #dc3545;
+}
