@@ -1,0 +1,34 @@
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<div class="container max600" layout:fragment="content">
+  <div class="py-5 text-center">
+    <h2>질문 상세 페이지</h2>
+  </div>
+  <h3 class="border-bottom py-3" th:text="${question.subject}"></h3>
+  <div class="card my-3">
+    <div class="card-body">
+      <div class="card-text" th:text="${question.content}"></div>
+      <div class="d-flex justify-content-end">
+        <div class="badge bg-dark text-light p-2 text-start">
+          <div class="mb-2">
+            <span th:text="${question.author.loginId != null ? question.author.loginId : 'Unknwon'}">글쓴이</span>
+          </div>
+          <div th:text="${#temporals.format(question.creatDate, 'yyyy-MM-dd hh:mm')}"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 답변 개수 -->
+  <h5 class="border-bottom my-3 py-2" th:text="|${#lists.size(question.answerList)} 개의 답변이 있습니다.|"></h5>
+  <form th:Object="${answerForm}" th:action="@{|/answer/create/${question.id}|}" method="post" class="my-3">
+    <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger" role="alert">
+      <div th:each=" err : ${#fields.allErrors()}" th:text="${err}"></div>
+    </div>
+    <textarea th:field="*{content}" class="form-control" placeholder="내용을 입력하세요."></textarea>
+    <hr class="my-4">
+    <div class="my-2">
+      <a type="submit" class="btn btn-dark btn-sm text-end" role="button">등록하기</a>
+      <a th:href="@{/}" type="button" class="btn btn-outline-secondary btn-sm text-end" role="button">취소</a>
+    </div>
+  </form>
+</div>

@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
-  <link th:href="@{/css/style.css}" rel="stylesheet">
-  <title>회원 수정</title>
-</head>
-<body>
-<div class="container max600">
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<div class="container max600" layout:fragment="content">
   <div class="py-5 text-center">
     <h2>회원 수정</h2>
   </div>
@@ -21,7 +14,7 @@
     </div>
     <div class="mb-3">
       <label th:for="password" class="form-label">비밀번호</label>
-      <input type="password" class="form-control" placeholder="비밀번호를 입력하세요." th:field="*{password}" th:errorClass="field-error">
+      <input type="password" class="form-control" th:placeholder="'힌트 : 비밀번호는 '+ *{password} + '입니다.'" th:field="*{password}" th:errorClass="field-error">
       <div th:errors="*{password}" class="field-error"></div>
     </div>
     <div class="mb-3">
@@ -44,5 +37,4 @@
     </div>
   </form>
 </div>
-</body>
 </html>

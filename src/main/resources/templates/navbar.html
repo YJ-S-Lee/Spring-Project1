@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-md bg-body-tertiary border-bottom border-2 border-secondary" data-bs-theme="dark" th:fragment="navbarFragment">
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="@{/}">HOME</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto my-1 mb-lg-0">
+        <li class="nav-item d-flex align-items-center">
+          <div th:if="${loginMember == null}">
+            <a class="nav-link" aria-current="page" th:href="@{/login}">로그인</a>
+          </div>
+          <div th:if="${loginMember}">
+            <p class="text-end text-light fw-bold me-4 mb-3 mb-md-0" th:text="|${loginMember.name} 님 환영합니다.|"></p>
+          </div>
+        </li>
+        <li class="nav-item d-flex align-items-center">
+          <div th:if="${loginMember == null}">
+            <a class="nav-link" aria-current="page" th:href="@{/add}">회원가입</a>
+          </div>
+          <form class="text-start" th:if="${loginMember}" th:action="@{/logout}" method="post">
+            <button class="btn btn-light btn-sm">로그아웃</button>
+          </form>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,31 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
-    <link th:href="@{/css/style.css}" rel="stylesheet">
-    <title>home</title>
-</head>
-<body>
-<div class="container max600">
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<div class="container max600" layout:fragment="content">
     <div class="py-5 text-center">
         <h2>홈 화면</h2>
     </div>
     <div class="row">
-        <div class="col">
+        <div class="col-md mb-3 mb-md-0">
             <button th:onclick="|location.href='@{/add}'|" type="button" class="w-100 btn btn-secondary btn-lg">회원 가입</button>
-<!--            <a th:href="@{/add}" class="w-100 btn btn-secondary btn-lg" role="button">회원 가입</a>-->
+<!-- <a th:href="@{/add}" class="w-100 btn btn-secondary btn-lg" role="button">회원 가입</a> -->
         </div>
-        <div class="col">
-            <button th:onclick="|location.href='@{/members}'|" type="button" class="w-100 btn btn-primary btn-lg">회원 목록</button>
-            <!--            <a th:href="@{/members}" class="w-100 btn btn btn-outline-warning-light btn-lg" role="button">회원 목록</a>-->
-        </div>
-        <div class="col">
+        <div class="col-md mb-3 mb-md-0">
             <button th:onclick="|location.href='@{/login}'|" type="button" class="w-100 btn btn-dark btn-lg">로그인</button>
-<!--            <a th:href="@{/login}" class="w-100 btn btn-dark btn-lg role="button">로그인</a>-->
+<!-- <a th:href="@{/login}" class="w-100 btn btn-dark btn-lg role="button">로그인</a> -->
         </div>
     </div>
-    <hr class="my-4">
+    <hr class="my-3 mb-md-0">
 </div>
-</body>
 </html>

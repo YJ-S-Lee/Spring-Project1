@@ -1,10 +1,7 @@
 package login.login.controller;
 
-import ch.qos.logback.classic.Logger;
 import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import login.login.domain.EzenMember;
 import login.login.dto.LoginForm;
@@ -18,10 +15,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-@Slf4j
-@Controller
+//@Controller
 @RequiredArgsConstructor
-public class LoginController {
+@Slf4j
+public class LoginController_cookie {
 
     public final LoginService loginService;
 
@@ -35,8 +32,7 @@ public class LoginController {
 
     //로그인이 되는 로직
     @PostMapping("/login")
-    public String login(@Valid @ModelAttribute("loginForm") LoginForm loginForm, BindingResult bindingResult, HttpServletRequest request) {
-
+    public String login(@Valid @ModelAttribute("loginForm") LoginForm loginForm, BindingResult bindingResult, HttpServletResponse response) {
         if (bindingResult.hasErrors()) {
             return "user/loginForm";
         }
@@ -50,26 +46,23 @@ public class LoginController {
             return "user/loginForm";
         }
 
-        //로그인 성공 시 세션이 있으면 있는 세션 반환, 없으면 신규 세션 생성
-        HttpSession session = request.getSession();
-        //세션에 로그인 회원정보를 보관
-        session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
-
+        //쿠키에 시간 정보를 주지 않으면 세션 쿠키는 브라우저 종료 시 모두 종료
+        Cookie idCookie = new Cookie("memberId", String.valueOf(loginMember.getId()));
+        response.addCookie(idCookie);
         log.info("로그인한 회원은? {} {}", loginMember.getLoginId(), loginMember.getName());
-        log.info("session {}", session);
         return "redirect:/";
     }
 
     //로그아웃 기능
     @PostMapping("/logout")
-    public String logout(HttpServletRequest request) {
-        //세션 삭제(기본값은 true이지만 삭제해야하기에 false를 준다.), 일단 세션을 가지고 오지만 없으면 null 값을 준다.
-        HttpSession session = request.getSession(false);
-        if(session != null) {
-            session.invalidate();   //세션 제거
-        }
-
+    public String logout(HttpServletResponse response) {
+        expireCookie(response, "memberId");
         return "redirect:/";
     }
 
+    private void expireCookie(HttpServletResponse response, String memberId) {
+        Cookie cookie = new Cookie(memberId, null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+    }
 }

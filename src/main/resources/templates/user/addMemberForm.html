@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
-    <link th:href="@{/css/style.css}" rel="stylesheet">
-    <title>회원가입</title>
-</head>
-<body>
-<div class="container max600">
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<div class="container max600" layout:fragment="content">
     <div class="py-5 text-center">
         <h2>회원 가입</h2>
     </div>
@@ -39,5 +32,4 @@
         </div>
     </form>
 </div>
-</body>
 </html>

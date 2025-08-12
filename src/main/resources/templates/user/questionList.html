@@ -1,0 +1,32 @@
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<div class="container max600" layout:fragment="content">
+  <div class="py-5 text-center">
+    <h2>질문 목록</h2>
+  </div>
+    <table class="table table-hover text-center">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">번호</th>
+          <th scope="col">제목</th>
+          <th scope="col">글쓴이</th>
+          <th scope="col">작성일시</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="question : ${questionList}">
+          <td th:text="${question.id}"></td>
+          <td>
+            <a th:text="${question.subject}" th:href="@{/question/detail/{id} (id=${question.getId()})}"></a>
+          </td>
+          <td th:text="${question.author != null ? question.author.loginId : 'Unknown'}"></td>
+          <td th:text="${#temporals.format(question.creatDate, 'yyyy-MM-dd hh:mm')}"></td>
+        </tr>
+      </tbody>
+    </table>
+  <div class="py-2">
+    <button th:onclick="|location.href='@{/question/create}'|" type="button" class="btn btn-dark btn-sm ms-1">질문 등록하기</button>
+    <button th:onclick="|location.href='@{/}'|" type="button" class="btn btn-outline-secondary btn-sm ms-1">돌아가기</button>
+  </div>
+</div>
+</html>
