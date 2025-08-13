@@ -1,11 +1,13 @@
 package login.login.domain;
 
+import login.login.repository.MemberRepository;
 import login.login.repository.QuestionRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,9 +16,11 @@ class QuestionTest {
 
     @Autowired //테스트에서는 이걸 사용해야 등록이 된다.
     private QuestionRepository questionRepository;
+    @Autowired
+    private MemberRepository memberRepository;
 
     @Test
-    void 질문1() {
+    void 질문() {
         Question question1 = new Question();
         question1.setSubject("제목입니다.");
         question1.setContent("내용입니다.");
@@ -25,12 +29,17 @@ class QuestionTest {
     }
 
     @Test
-    void 질문2() {
-        Question question2 = new Question();
-        question2.setSubject("제목입니다.");
-        question2.setContent("내용입니다.");
-        question2.setCreatDate(LocalDateTime.now());
-        questionRepository.save(question2);
-    }
+    void testData() {
 
+        Optional<EzenMember> ezenMember = memberRepository.findById(1l);
+
+        for(int i=1; i<=300; i++) {
+            Question question2 = new Question();
+            question2.setSubject("대량 데이터 제목입니다.(" + i + ")");
+            question2.setContent("대량 데이터 내용입니다.(" + i + ")");
+            question2.setAuthor(ezenMember.get());
+            question2.setCreatDate(LocalDateTime.now());
+            questionRepository.save(question2);
+        }
+    }
 }

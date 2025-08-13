@@ -1,6 +1,6 @@
 <html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
 
-<div class="container max600" layout:fragment="content">
+<div class="container" layout:fragment="content">
     <div class="py-5 text-center">
         <h2>질문 등록</h2>
     </div>
@@ -17,7 +17,7 @@
             <textarea th:field="*{content}" class="form-control" rows="10" placeholder="내용을 입력하세요."></textarea>
         </div>
         <hr class="my-4">
-        <div class="my-2">
+        <div class="my-2 text-end">
             <button type="submit" class="btn btn-dark btn-sm">등록하기</button>
             <button th:onclick="|location.href='@{/}'|" type="button" class="btn btn-outline-secondary btn-sm">취소</button>
         </div>
